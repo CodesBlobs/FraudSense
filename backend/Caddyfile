@@ -1,0 +1,32 @@
+{
+    email your-email@example.com
+}
+
+# Replace 'your-domain.com' with your actual domain or subdomain
+# e.g., api.fraudsense.com
+your-domain.com {
+    reverse_proxy backend:3001
+
+    header {
+        # Enable CORS for Vercel (Replace with your actual Vercel URL or uses * if you're lazy)
+        Access-Control-Allow-Origin *
+        Access-Control-Allow-Methods "GET, POST, PUT, DELETE, OPTIONS"
+        Access-Control-Allow-Headers "Content-Type, Authorization"
+        Access-Control-Allow-Credentials "true"
+        
+        # Security headers
+        Strict-Transport-Security "max-age=31536000;"
+        X-Content-Type-Options nosniff
+        X-Frame-Options DENY
+        Referrer-Policy no-referrer-when-downgrade
+    }
+
+    handle_path /api/* {
+        reverse_proxy backend:3001
+    }
+
+    # Logging
+    log {
+        output file /data/access.log
+    }
+}
