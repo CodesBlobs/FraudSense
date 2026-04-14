@@ -1,4 +1,6 @@
-const API_BASE = process.env.NEXT_PUBLIC_API_URL || 'http://127.0.0.1:3001';
+// In production, we'll use a Next.js rewrite (proxy) to talk to the backend.
+// This allows us to use relative paths like '/api/...' which bypasses HTTPS/HTTP blocks.
+const API_BASE = process.env.NEXT_PUBLIC_API_URL || '';
 
 interface FetchOptions extends RequestInit {
   auth?: boolean;
